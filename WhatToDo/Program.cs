@@ -1,23 +1,25 @@
-var builder = WebApplication.CreateBuilder(args);
+﻿var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Servisleri ekle
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+
+// Swagger/OpenAPI ekle
+builder.Services.AddEndpointsApiExplorer(); // Endpoint keşfi
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Middleware pipeline
 if (app.Environment.IsDevelopment())
 {
+    // Swagger UI'yi sadece geliştirme ortamında göster
     app.MapOpenApi();
+    app.UseSwagger();
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
+app.UseSwaggerUI();
 app.MapControllers();
 
 app.Run();
