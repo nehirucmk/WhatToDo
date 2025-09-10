@@ -1,0 +1,6 @@
+@WhatToDo_HostAddress = http://localhost:5288
+
+GET {{WhatToDo_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
