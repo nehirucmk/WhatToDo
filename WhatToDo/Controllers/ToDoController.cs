@@ -25,15 +25,28 @@ namespace WhatToDo.Controllers
         {
             var categorized = new List<ToDo>();
 
-            for(int i = 0; i<todos.Count; i++)
+            for (int i = 0; i < todos.Count; i++)
             {
                 if (todos[i].Category == category)
                 {
                     categorized.Add(todos[i]);
                 }
             }
-            
+
             return Ok(categorized);
         }
+    
+
+    [HttpPost("Add")]
+        public IActionResult Add(ToDo newTodo)
+        {
+            newTodo.Id = todos.Max(t => t.Id) + 1;
+
+            // listeye ekle
+            todos.Add(newTodo);
+
+            // listeyi geri dön
+            return Ok(todos);
+        }
     }
-}
+    }
