@@ -35,9 +35,9 @@ namespace WhatToDo.Controllers
 
             return Ok(categorized);
         }
-    
 
-    [HttpPost("Add")]
+
+        [HttpPost("Add")]
         public IActionResult Add(ToDo newTodo)
         {
             newTodo.Id = todos.Max(t => t.Id) + 1;
@@ -48,5 +48,24 @@ namespace WhatToDo.Controllers
             // listeyi geri dön
             return Ok(todos);
         }
+
+        [HttpDelete("Delete/{id}")]
+        public IActionResult Delete(int id)
+        {
+            // silinecek görevi listede bul
+            var itemToDelete = todos.FirstOrDefault(t => t.Id == id);
+
+            // bulunamazsa hata ver
+            if (itemToDelete == null)
+            {
+                return NotFound("id bulunamadi");
+            }
+
+            // bulunduysa sil
+            todos.Remove(itemToDelete);
+
+            // güncel listeyi göster
+            return Ok(todos);
+        }
     }
-    }
+}
