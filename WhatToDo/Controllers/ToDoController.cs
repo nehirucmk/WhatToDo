@@ -58,13 +58,35 @@ namespace WhatToDo.Controllers
             // bulunamazsa hata ver
             if (itemToDelete == null)
             {
-                return NotFound("id bulunamadi");
+                return NotFound("id not found");
             }
 
             // bulunduysa sil
             todos.Remove(itemToDelete);
 
             // güncel listeyi göster
+            return Ok(todos);
+        }
+
+        [HttpPut("Update")]
+        public IActionResult Update(ToDo updatedTodo)
+        {
+            // id'ye göre görevi bul
+            var existingTodo = todos.FirstOrDefault(t => t.Id == updatedTodo.Id);
+
+            // bulunmazsa hata ver
+            if (existingTodo == null)
+            {
+                return NotFound("id not found");
+            }
+
+            // update
+            existingTodo.Task = updatedTodo.Task;
+            existingTodo.Category = updatedTodo.Category;
+            existingTodo.Priority = updatedTodo.Priority;
+            existingTodo.Status = updatedTodo.Status;
+
+            // listeyi geri dön
             return Ok(todos);
         }
     }
