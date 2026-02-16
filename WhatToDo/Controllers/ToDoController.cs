@@ -96,5 +96,17 @@ namespace WhatToDo.Controllers
         {
             return Ok(todos.OrderBy(t => t.DueDate).ToList());
         }
+
+        // overdue task controller
+        [HttpGet("Overdue")]
+        public IActionResult GetOverdue()
+        {
+            var overdueTasks = todos.Where(t => t.IsOverdue).ToList();
+
+            if (overdueTasks.Count == 0)
+                return Ok(new { Message = "no overdue tasks!!" });
+
+            return Ok(overdueTasks);
+        }
     }
 }

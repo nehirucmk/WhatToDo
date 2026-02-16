@@ -11,5 +11,8 @@ namespace WhatToDo.Entities
         public string Status { get; set; }
         public DateTime DueDate { get; set; } 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        // controls for the overdue tasks
+        public bool IsOverdue => Status != "Done" && DueDate < DateTime.Now;
     }
 }
