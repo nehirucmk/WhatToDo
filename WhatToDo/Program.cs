@@ -1,18 +1,14 @@
 ﻿var builder = WebApplication.CreateBuilder(args);
 
-// Servisleri ekle
 builder.Services.AddControllers();
 
-// Swagger/OpenAPI ekle
-builder.Services.AddEndpointsApiExplorer(); // Endpoint keşfi
+builder.Services.AddEndpointsApiExplorer(); 
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Middleware pipeline
 if (app.Environment.IsDevelopment())
 {
-    // Swagger UI'yi sadece geliştirme ortamında göster
     app.MapOpenApi();
     app.UseSwagger();
 }
