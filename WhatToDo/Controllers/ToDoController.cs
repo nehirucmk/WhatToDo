@@ -42,39 +42,39 @@ namespace WhatToDo.Controllers
         {
             newTodo.Id = todos.Max(t => t.Id) + 1;
 
-            // listeye ekle
+            // add to list
             todos.Add(newTodo);
 
-            // listeyi geri dön
+            // return the new list
             return Ok(todos);
         }
 
         [HttpDelete("Delete/{id}")]
         public IActionResult Delete(int id)
         {
-            // silinecek görevi listede bul
+            // find the task you want to delete
             var itemToDelete = todos.FirstOrDefault(t => t.Id == id);
 
-            // bulunamazsa hata ver
+            // error text if not found
             if (itemToDelete == null)
             {
                 return NotFound("id not found");
             }
 
-            // bulunduysa sil
+            // delete the item
             todos.Remove(itemToDelete);
 
-            // güncel listeyi göster
+            // return the new list
             return Ok(todos);
         }
 
         [HttpPut("Update")]
         public IActionResult Update(ToDo updatedTodo)
         {
-            // id'ye göre görevi bul
+            // find the task using the id
             var existingTodo = todos.FirstOrDefault(t => t.Id == updatedTodo.Id);
 
-            // bulunmazsa hata ver
+            // error text if not found
             if (existingTodo == null)
             {
                 return NotFound("id not found");
@@ -86,8 +86,15 @@ namespace WhatToDo.Controllers
             existingTodo.Priority = updatedTodo.Priority;
             existingTodo.Status = updatedTodo.Status;
 
-            // listeyi geri dön
+            // return the new list
             return Ok(todos);
+        }
+
+        // sorting by date
+        [HttpGet("SortedByDate")]
+        public IActionResult GetSorted()
+        {
+            return Ok(todos.OrderBy(t => t.DueDate).ToList());
         }
     }
 }

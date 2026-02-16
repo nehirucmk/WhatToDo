@@ -1,4 +1,6 @@
-﻿namespace WhatToDo.Entities
+﻿// model class used for definition of the data structure
+
+namespace WhatToDo.Entities
 {
     public class ToDo
     {
@@ -7,5 +9,7 @@
         public string Category { get; set; }
         public string Priority { get; set; }
         public string Status { get; set; }
+        public DateTime DueDate { get; set; } 
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }
