@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>MY TO-DO LIST</title>
+    <style>
+        body {
+            font-family: Georgia;
+            background: #808080;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .todo-item {
+            border-bottom: 1px solid #eee;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .overdue {
+            color: red;
+            font-weight: bold;
+        }
+        .done {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>MY TO-DO LIST</h1>
+        <div id="todoList">loading...</div>
+    </div>
+
+    <script>
+    const API_URL = "https://localhost:7000/ToDo/GetAll";
+
+    async function getTodos() {
+        try {
+            const response = await fetch(API_URL);
+            const data = await response.json();
+
+            const listDiv = document.getElementById('todoList');
+            listDiv.innerHTML = ""; 
+
+            data.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'todo-item';
+
+                const taskClass = item.isOverdue ? 'overdue' : '';
+                const statusClass = item.status === 'Done' ? 'done' : '';
+
+                div.innerHTML = `
+                    <div>
+                        <span class="${taskClass} ${statusClass}">${item.task}</span>
+                        <br><small>Son Tarih: ${new Date(item.dueDate).toLocaleString('tr-TR')}</small>
+                    </div>
+                    <small>${item.category}</small>
+                `;
+                listDiv.appendChild(div);
+            });
+        } catch (error) {
+            document.getElementById('todoList').innerHTML = "error!";
+        }
+    }
+
+    getTodos();
+    </script>
+
+</body>
+</html>

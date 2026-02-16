@@ -9,9 +9,9 @@ namespace WhatToDo.Controllers
     {
         private List<ToDo> todos = new List<ToDo>()
         {
-            new ToDo { Id = 1, Task = "To Wake Up", Category = "Daily", Priority = "5", Status= "Done"},
+            new ToDo { Id = 1, Task = "Waking Up", Category = "Daily", Priority = "5", Status= "Done"},
             new ToDo { Id = 2, Task = "Brushing Teeth", Category = "Daily", Priority = "5", Status="Done" },
-            new ToDo { Id = 3, Task = "Code something", Category = "Job", Priority = "5", Status= "Pending" }
+            new ToDo { Id = 3, Task = "Coding", Category = "Job", Priority = "4", Status= "Pending" }
         };
 
         [HttpGet("GetAll")]
